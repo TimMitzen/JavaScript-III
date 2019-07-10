@@ -4,15 +4,16 @@
 * 1. Window binding, window or console.
 * 2. Implicit binding, using the dot notion. The object before the . is this.
 * 3. New binding.Its a constructor function in this constructor function an objected is created. Also the keyword new is used.
-* 4. Explicit binding, uses, .call, .apply and binding.
+* 4. Explicit binding, uses, .call, .apply and binding, goes with a function or object.
 * write out a code example of each explanation above
 */
 
 // Principle 1
 
 // code example for Window Binding
+console.log(this);
 function helloWorld(world) {
-    console.log(this);
+    console.log(this, 'this');
     return world;
 }
 console.log("earth");
@@ -25,10 +26,10 @@ const timObj = {
     saying: "say my name",
     saySaying: function(name){
         console.log(`${this.saying}, its ${name}.`);
-        console.log(this);
+       
     }
 };
-timObj.saySaying("Tim");
+console.log(timObj.saying)
 
 // Principle 3
 
@@ -62,5 +63,5 @@ function Product(product, weight){
     this.type = "product";
     console.log(`${this.product} weighs ${this.weight} pounds`);
 }
-console.log(new Product("Oranges", 5).product);
+console.log(new Product("Ham", 5).product);
 console.log(new Product("Meat", 10).weight)

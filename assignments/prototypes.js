@@ -66,6 +66,38 @@ function Humanoid(humAttrs) {
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`
 };
+ // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Villain(vilAttrs) { 
+  GameObject.call(this,vilAttrs);
+  CharacterStats.call(this, vilAttrs);
+  Humanoid.call(this, vilAttrs);
+  this.badGuy = vilAttrs.badGuy;
+  
+}
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+Villain.prototype.removeHealth1 = function() {//still working ok this part
+  return `${this.healthPoints - 15}` 
+};
+Villain.prototype.destruction1 = function(){
+  if(this.removeHealth1 < 0){
+    return `Death to ${this.name} has occurred.`
+  } else { 
+      return `${this.name} is still alive.`
+  }
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype = Object.create(Villain.prototype);
+
+function Hero(herAttrs){
+  GameObject.call(this, herAttrs);
+  CharacterStats.call(this, herAttrs);
+  Humanoid.call(this,herAttrs);
+  Villain.call(this,herAttrs);
+  this.goodGuy = herAttrs.goodGuy;
+  }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -124,6 +156,51 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Elvish',
   });
+
+  const battleMage = new Villain ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Troy',
+    team: 'Bad Guys',
+    weapons: [
+      'Bow',
+      'Spear',
+    ],
+    language: 'Elvish',
+    badGuy: 'Yes',
+    goodGuy: "No"
+  });
+
+  const blackMage = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Jason',
+    team: 'Good Guys',
+    weapons: [
+      'Wand'
+    ],
+    language: 'Elvish',
+    badGuy: 'No',
+    goodGuy: 'Yes'
+  });
+  console.log(battleMage.removeHealth1());
+  console.log(battleMage.destruction1());
+  console.log(blackMage.destroy());
+  console.log(blackMage.removeHealth1());
+  console.log(blackMage.destruction1());
+
+  
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
