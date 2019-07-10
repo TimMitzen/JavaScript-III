@@ -78,10 +78,10 @@ function Villain(vilAttrs) {
 }
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 Villain.prototype.removeHealth1 = function() {//still working ok this part
-  return `${this.healthPoints - 15}` 
+  return this.healthPoints - 15;
 };
 Villain.prototype.destruction1 = function(){
-  if(this.removeHealth1 < 0){
+  if(this.removeHealth1() <= 0){
     return `Death to ${this.name} has occurred.`
   } else { 
       return `${this.name} is still alive.`
@@ -183,7 +183,7 @@ function Hero(herAttrs){
       width: 2,
       height: 4,
     },
-    healthPoints: 15,
+    healthPoints: 20,
     name: 'Jason',
     team: 'Good Guys',
     weapons: [
